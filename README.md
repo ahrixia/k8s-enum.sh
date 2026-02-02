@@ -152,6 +152,8 @@ The scripts specifically look for these dangerous permissions:
 
 <img width="1150" height="831" alt="image" src="https://github.com/user-attachments/assets/94467050-2b55-4ce2-abdf-129f90c34cdf" />
 
+<img width="1150" height="831" alt="image" src="https://github.com/user-attachments/assets/c8be84b8-3cdb-4afb-bd10-d8e3296298f3" />
+
 ---
 
 ## 🛠️ Usage Examples
