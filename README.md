@@ -18,7 +18,7 @@
 
 ## 🎯 What is K8s-Enum?
 
-**K8s-Enum** is a set of Kubernetes security enumeration scripts designed for penetration testers, red teamers, and security researchers. Inspired by [LinPEAS](https://github.com/carlospolop/PEASS-ng), these tools provide comprehensive enumeration with color-coded output highlighting privilege escalation vectors and misconfigurations.
+**k8s-enum** is a set of Kubernetes security enumeration scripts designed for penetration testers, red teamers, and security researchers. Inspired by [LinPEAS](https://github.com/carlospolop/PEASS-ng), these tools provide comprehensive enumeration with color-coded output highlighting privilege escalation vectors and misconfigurations.
 
 The toolkit includes two specialized scripts:
 - **`k8s-enum.sh`** - External enumeration using kubeconfig files
