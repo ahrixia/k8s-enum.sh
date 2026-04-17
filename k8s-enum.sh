@@ -1,12 +1,46 @@
-#!/bin/bash
+#!/bin/sh
 
 #=============================================================================
-#  K8S-ENUM - Kubernetes Enumeration Tool (LinPEAS Style)
+#  K8S-ENUM - Kubernetes Enumeration Tool (LinPEAS Style) v1.1
 #  Author: Astik Rawat (ahrixia)
 #  Usage: ./k8s-enum.sh --profile <kubeconfig-file>
+#
+#  v1.1 Changes:
+#  - Added support for BusyBox and minimal base images
+#  - POSIX shell compliance for better compatibility
+#  - Auto-detection of shell capabilities
 #=============================================================================
 
-VERSION="1.0.0"
+VERSION="1.1"
+
+# Shell compatibility detection
+detect_shell_features() {
+    # Check if we have bash features
+    if [ -n "$BASH_VERSION" ]; then
+        SHELL_TYPE="bash"
+        BRACKET_TEST="[["
+    else
+        SHELL_TYPE="posix"
+        BRACKET_TEST="["
+    fi
+
+    # Check for BusyBox
+    if command -v busybox >/dev/null 2>&1; then
+        IS_BUSYBOX=true
+    else
+        IS_BUSYBOX=false
+    fi
+
+    # Check for essential commands
+    for cmd in awk grep sed cut tr head tail; do
+        if ! command -v "$cmd" >/dev/null 2>&1; then
+            echo "Warning: $cmd not available, some features may not work" >&2
+        fi
+    done
+}
+
+# Initialize compatibility layer early
+detect_shell_features
 
 # Colors
 RED='\033[0;91m'
@@ -39,6 +73,7 @@ print_banner() {
 EOF
     echo -e "${NC}"
     echo -e "${CYAN}    Kubernetes Enumeration Tool v${VERSION} by Ahrixia"
+    echo -e "${CYAN}    Shell: ${SHELL_TYPE:-unknown} | BusyBox: ${IS_BUSYBOX:-unknown}"
     echo -e "${CYAN}    For authorized security testing only${NC}"
     echo ""
 }
@@ -110,7 +145,7 @@ NAMESPACE=""
 ALL_NS=false
 QUICK=false
 
-while [[ $# -gt 0 ]]; do
+while [ $# -gt 0 ]; do
     case $1 in
         --profile|-p)
             PROFILE="$2"
@@ -275,7 +310,7 @@ enumerate_namespaces() {
         print_success "Can list namespaces"
         echo ""
         for ns in $namespaces; do
-            if [[ "$ns" == "kube-system" || "$ns" == "kube-public" || "$ns" == "default" ]]; then
+            if [ "$ns" = "kube-system" ] || [ "$ns" = "kube-public" ] || [ "$ns" = "default" ]; then
                 echo -e "  ${YELLOW}• $ns${NC} (system namespace)"
             else
                 echo -e "  ${GREEN}• $ns${NC}"
