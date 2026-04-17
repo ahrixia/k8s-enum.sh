@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #=============================================================================
 #  K8S-ENUM - Kubernetes Enumeration Tool (LinPEAS Style) v1.1
@@ -7,7 +7,6 @@
 #
 #  v1.1 Changes:
 #  - Added support for BusyBox and minimal base images
-#  - POSIX shell compliance for better compatibility
 #  - Auto-detection of shell capabilities
 #=============================================================================
 
@@ -18,10 +17,8 @@ detect_shell_features() {
     # Check if we have bash features
     if [ -n "$BASH_VERSION" ]; then
         SHELL_TYPE="bash"
-        BRACKET_TEST="[["
     else
         SHELL_TYPE="posix"
-        BRACKET_TEST="["
     fi
 
     # Check for BusyBox
@@ -29,6 +26,19 @@ detect_shell_features() {
         IS_BUSYBOX=true
     else
         IS_BUSYBOX=false
+    fi
+
+    # Test echo -e compatibility
+    if echo -e "\033[0m" | grep -q "033"; then
+        # echo -e doesn't work, create a wrapper
+        echo() {
+            if [ "$1" = "-e" ]; then
+                shift
+                printf "%b\n" "$*"
+            else
+                command echo "$@"
+            fi
+        }
     fi
 
     # Check for essential commands
@@ -73,7 +83,7 @@ print_banner() {
 EOF
     echo -e "${NC}"
     echo -e "${CYAN}    Kubernetes Enumeration Tool v${VERSION} by Ahrixia"
-    echo -e "${CYAN}    Shell: ${SHELL_TYPE:-unknown} | BusyBox: ${IS_BUSYBOX:-unknown}"
+    echo -e "${CYAN}    Enhanced for BusyBox and minimal base images"
     echo -e "${CYAN}    For authorized security testing only${NC}"
     echo ""
 }
